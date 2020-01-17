@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 import {
   Card,
@@ -11,28 +12,28 @@ import {
 } from "reactstrap";
 
 const PlanetCard = props => {
-  console.log(props);
+
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
+
   return (
     <div>
-      {props.planets.map(planetData => (
-        <Card key={planetData.name}>
+        <Card id={props.planets.name} key={props.planets.name + "card"}>
           <CardBody>
-            <CardTitle>{planetData.name}</CardTitle>
-            <CardSubtitle>Climate: {planetData.climate}</CardSubtitle>
+            <CardTitle>{props.planets.name}</CardTitle>
+            <CardSubtitle>Climate: {props.planets.climate}</CardSubtitle>
             <Collapse isOpen={isOpen}>
-              <CardText>Hours per day: {planetData.rotation_period}</CardText>
-              <CardText>Gravity: {planetData.gravity}</CardText>
-              <CardText>Population: {planetData.population}</CardText>
+              <CardText>Hours per day: {props.planets.rotation_period}</CardText>
+              <CardText>Gravity: {props.planets.gravity}</CardText>
+              <CardText>Population: {props.planets.population}</CardText>
             </Collapse>
             <Button onClick={toggle} style={{ marginBottom: "1rem" }}>
               Toggle
             </Button>
+                  
           </CardBody>
         </Card>
-      ))}
     </div>
   );
 };

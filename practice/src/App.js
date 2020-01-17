@@ -2,6 +2,10 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import PlanetCard from './components/card';
+import {useLocalStorage} from './components/hooks/useLocalStorage'
+
+import { Button } from "reactstrap";
+
 
 //"https://swapi.co/api/planets/"
 class App extends React.Component{
@@ -13,6 +17,8 @@ class App extends React.Component{
     }
 
   }
+
+
   componentDidMount(){
     axios.get('https://swapi.co/api/planets/')
     .then(response => {
@@ -22,7 +28,17 @@ class App extends React.Component{
       console.log(this.state, "our new state")
 
     })
-    .catch(error => {console.log(error)})
+        .catch(error => { console.log(error) })
+
+      const [favoriteStatus, setFavoriteStatus] = useLocalStorage('favorites', []);
+
+      const saveToFavorites = e => {
+
+          e.preventDefault();
+
+          setFavoriteStatus([...favoriteStatus, e.target.value])
+
+      };
   }
 
   render() {
@@ -37,11 +53,16 @@ class App extends React.Component{
 
     return (
       <div>
-        {
-          { this.state.user.map((planetData) => (
-
-            return (<PlanetCard planets={planetData} />)
-          )
+        
+            {this.state.user.map(planetData =>
+              <>
+                <PlanetCard planets={planetData} key={planetData.name} />
+                    <Button value={planetData.name} onClick={this.saveToFavorites} style={{ marginBottom: "1rem", marginLeft: "1rem" }}>
+                        💖
+            </Button>
+              </>    
+              )
+          
         }
       </div>
     )
