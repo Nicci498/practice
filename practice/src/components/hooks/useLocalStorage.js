@@ -13,7 +13,9 @@ export const useLocalStorage = (key, initialValue) => {
         // if the value is not in the array, add it
         if(storedValue.includes(value)){
             setStoredValue(storedValue.filter(val => {
-                return val !== value;
+                console.log("val", val);
+                console.log("value", value);
+                return val !== value
             }))
         } else{
             setStoredValue([...storedValue, value]);

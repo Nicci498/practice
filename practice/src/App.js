@@ -39,8 +39,15 @@ const App = () => {
     return "Retrieving data...";
   }
 
+  console.log("Our favorite planets:", favoriteStatus);
+
   return (
     <div>
+        <h2>Favorite Planets:</h2>
+        {/* <ul>
+        {!favoriteStatus ? "none" : favoriteStatus.map(planet => (<li>{planet}</li>))}
+        </ul> */}
+      
       {user.map(planetData => (
         <>
           <PlanetCard planets={planetData} key={planetData.name} />
