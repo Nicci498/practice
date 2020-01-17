@@ -16,7 +16,6 @@ const PlanetCard = props => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
-
   return (
     <div>
         <Card id={props.planets.name} key={props.planets.name + "card"}>

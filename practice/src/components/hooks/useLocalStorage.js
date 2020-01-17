@@ -7,7 +7,18 @@ export const useLocalStorage = (key, initialValue) => {
     });
 
     const setValue = value => {
-        setStoredValue(value);
+
+        // check if value is in array already
+        // if so, remove the value
+        // if the value is not in the array, add it
+        if(storedValue.includes(value)){
+            setStoredValue(storedValue.filter(val => {
+                return val !== value;
+            }))
+        } else{
+            setStoredValue([...storedValue, value]);
+        }
+
         window.localStorage.setItem(key, JSON.stringify(value));
     };
 
